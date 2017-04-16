@@ -221,8 +221,8 @@ $(function() {
      * Hide/remove from storage when space is hit
      */
     var removedAfterSpace = false;
-    $(document).keydown(function(evt) {
-        if (32 == evt.keyCode) {
+    $(document).keydown(function (event) {
+        if (32 == event.keyCode) {
             console.log('space was hit');
 
             selectHidablesFromStorage(function ($found) {
