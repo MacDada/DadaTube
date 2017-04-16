@@ -86,37 +86,38 @@ $(function () {
     var HidablesStorage = function (prefix) {
         this.has = function (id, callback) {
             if (!id) {
-                callback(false);
+                throw 'HidablesStorage: id must not be empty';
             }
 
-            ldb.get(prefix + id, function (value) {
-                console.log('HidablesStorage get', prefix + id, value);
+            var storageKey = prefix + id;
+
+            ldb.get(storageKey, function (value) {
+                console.log('HidablesStorage get', storageKey, value);
+
                 callback(value ? true : false);
             });
-            // callback(storageDriver[prefix + id] ? true : false);
         };
 
         this.add = function (id) {
             console.log('HidablesStorage.add(' + id + ') called');
 
-            ldb.set(prefix + id, (new Date()).toJSON());
+            var storageKey = prefix + id;
 
-            ldb.get(prefix + id, function (value) {
-                console.log('value for "' + prefix + id + '" was set: "' + value + '"');
+            ldb.set(storageKey, (new Date()).toJSON());
+
+            ldb.get(storageKey, function (value) {
+                console.log('value for "' + storageKey + '" was set: "' + value + '"');
             });
-
-            // storageDriver[prefix + id] = (new Date()).toJSON();
         };
 
         this.remove = function (id) {
             this.has(id, function (has) {
                 if (has) {
                     ldb.set(prefix + id, null);
-                    // storageDriver.removeItem(prefix + id);
                 }
             });
         };
-    }; // eo Storage
+    };
 
     function selectHidablesFromStorage(returnResultCallback) {
         var selectedIds = [];
