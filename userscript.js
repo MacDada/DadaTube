@@ -119,7 +119,11 @@ $(function () {
         };
     };
 
-    function selectHidablesFromStorage(callback) {
+    /**
+     * @param {HidablesStorage} hidablesStorage
+     * @param {function} callback
+     */
+    function selectHidablesFromStorage(hidablesStorage, callback) {
         var selectedIds = [];
 
         var hidablesLength = $hidables.length;
@@ -206,7 +210,7 @@ $(function () {
     /**
      * Page loaded: removing elements already hidden and saved to localStorage
      */
-    selectHidablesFromStorage(function ($found) {
+    selectHidablesFromStorage(hidablesStorage, function ($found) {
         console.log('found to remove on start', $found);
 
         hidableView.hide($found);
@@ -221,7 +225,7 @@ $(function () {
     //     if (32 == event.keyCode) {
     //         console.log('space was hit');
     //
-    //         selectHidablesFromStorage(function ($found) {
+    //         selectHidablesFromStorage(hidablesStorage, function ($found) {
     //             if (removedAfterSpace) {
     //                 hidableView.hide($found);
     //             } else {
