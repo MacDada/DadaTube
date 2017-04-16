@@ -27,7 +27,7 @@ $(function () {
             return key + ': ' + value;
         }).join('; ');
 
-        return addGlobalStyle(selector + '{' + rulesCss + '}');
+        return selector + '{' + rulesCss + '}';
     }
 
     /**
