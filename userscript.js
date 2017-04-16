@@ -18,6 +18,16 @@ $(function () {
         style.type = 'text/css';
         style.innerHTML = css;
         head.appendChild(style);
+
+        console.log('added css', css);
+    }
+
+    function makeCss(selector, rules) {
+        var rulesCss = $.map(rules, function (value, key) {
+            return key + ': ' + value;
+        }).join('; ');
+
+        return addGlobalStyle(selector + '{' + rulesCss + '}');
     }
 
     /**
@@ -145,7 +155,10 @@ $(function () {
 
     var hiddenClass = 'dnthHidden';
 
-    addGlobalStyle('.' + hiddenClass + ' { opacity: ' + options.hiddenOpacity + '; transition: opacity 0.2s ease-in-out; }');
+    addGlobalStyle(makeCss('.' + hiddenClass, {
+        opacity: options.hiddenOpacity,
+        transition: 'opacity 0.2s ease-in-out'
+    }));
 
     /**
      * Hidables IDs storage helper.
