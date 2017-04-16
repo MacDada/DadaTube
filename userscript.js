@@ -239,7 +239,8 @@ $(function() {
     });
 
     $('<button>hide all and close</button>')
-        .insertAfter('ul.gallery')
+        .addClass('yt-uix-button yt-uix-button-size-default yt-uix-button-expander')
+        .insertAfter('#watch-more-related-button')
         .click(function () {
             hidablesController.hideAll();
 
