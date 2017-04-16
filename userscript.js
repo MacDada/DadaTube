@@ -92,7 +92,7 @@ $(function () {
             var storageKey = prefix + id;
 
             ldb.get(storageKey, function (value) {
-                console.log('DadaTube: HidablesStorage get', storageKey, value);
+                console.log('DadaTube: HidablesStorage.get', storageKey, value);
 
                 callback(value ? true : false);
             });
