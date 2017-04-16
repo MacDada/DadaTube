@@ -129,8 +129,8 @@ $(function () {
         var hidablesLength = $hidables.length;
         var hidablesProcessed = 0;
 
-        $hidables.each(function (index, value) {
-            var id = identifyHidable($(value));
+        $hidables.each(function (index, hidable) {
+            var id = identifyHidable($(hidable));
 
             hidablesStorage.has(id, function (has) {
                 hidablesProcessed++;
