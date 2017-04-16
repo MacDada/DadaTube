@@ -140,8 +140,7 @@ $(function () {
     }
 
     var options = {
-        hiddenOpacity: 0.3,
-        removeJunkStrategy: 'remove'
+        hiddenOpacity: 0.3
     };
 
     var hiddenClass = 'dnthHidden';
