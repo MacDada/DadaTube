@@ -149,6 +149,16 @@ $(function () {
         });
     }
 
+    /**
+     * Gets hidable identifying data
+     */
+    function identifyHidable($hidable) {
+        return $hidable
+            .find('a.thumb-link')
+            .attr('href')
+            .match('/watch\\?v=(.*)')[1];
+    }
+
     var options = {
         hiddenOpacity: 0.3
     };
@@ -166,16 +176,6 @@ $(function () {
      * Key hold hidable IDs, values have the date they were hidden.
      */
     var hiddenHidablesStorage = new HidablesStorage(localStorage, 'dnthHiddenHidable_');
-
-    /**
-     * Gets hidable identifying data
-     */
-    var identifyHidable = function ($hidable) {
-        return $hidable
-            .find('a.thumb-link')
-            .attr('href')
-            .match('/watch\\?v=(.*)')[1];
-    };
 
     /**
      * Items to hide
