@@ -8,11 +8,6 @@ $(function () {
 
     console.log('DadaTube: userscript.js ready');
 
-    var options = {
-        hiddenOpacity: 0.3,
-        removeJunkStrategy: 'remove'
-    };
-
     function addGlobalStyle(css) {
         var head, style;
         head = document.getElementsByTagName('head')[0];
@@ -24,10 +19,6 @@ $(function () {
         style.innerHTML = css;
         head.appendChild(style);
     }
-
-    var hiddenClass = 'dnthHidden';
-
-    addGlobalStyle('.' + hiddenClass + ' { opacity: ' + options.hiddenOpacity + '; transition: opacity 0.2s ease-in-out; }');
 
     /**
      * Show/hide hidables in the view
@@ -114,6 +105,49 @@ $(function () {
         };
     }; // eo Storage
 
+    function selectHidablesFromStorage(returnResultCallback) {
+        var selectedIds = [];
+
+        var hidablesLength = $hidables.length;
+        var hidablesProcessed = 0;
+
+        $hidables.each(function (index, value) {
+            var id = identifyHidable($(value));
+
+            hiddenHidablesStorage.has(id, function (has) {
+                hidablesProcessed++;
+
+                if (has) {
+                    selectedIds.push(id);
+                }
+
+                if (hidablesProcessed === hidablesLength) {
+                    document.selectedIds = selectedIds;
+
+                    document.hids = $hidables;
+
+                    var $result = $hidables.filter(function () {
+                        return !$.inArray(
+                            identifyHidable($(this)),
+                            selectedIds
+                        );
+                    });
+
+                    returnResultCallback($result);
+                }
+            });
+        });
+    }
+
+    var options = {
+        hiddenOpacity: 0.3,
+        removeJunkStrategy: 'remove'
+    };
+
+    var hiddenClass = 'dnthHidden';
+
+    addGlobalStyle('.' + hiddenClass + ' { opacity: ' + options.hiddenOpacity + '; transition: opacity 0.2s ease-in-out; }');
+
     /**
      * Hidables IDs storage helper.
      * Keys have prefix to avoid collisions and easily find items.
@@ -152,40 +186,6 @@ $(function () {
 
         hidablesController.toggleVisibility($(this));
     });
-
-    function selectHidablesFromStorage(returnResultCallback) {
-        var selectedIds = [];
-
-        var hidablesLength = $hidables.length;
-        var hidablesProcessed = 0;
-
-        $hidables.each(function (index, value) {
-            var id = identifyHidable($(value));
-
-            hiddenHidablesStorage.has(id, function (has) {
-                hidablesProcessed++;
-
-                if (has) {
-                    selectedIds.push(id);
-                }
-
-                if (hidablesProcessed === hidablesLength) {
-                    document.selectedIds = selectedIds;
-
-                    document.hids = $hidables;
-
-                    var $result = $hidables.filter(function () {
-                        return !$.inArray(
-                            identifyHidable($(this)),
-                            selectedIds
-                        );
-                    });
-
-                    returnResultCallback($result);
-                }
-            });
-        });
-    }
 
     /**
      * Page loaded: removing elements already hidden and saved to localStorage
