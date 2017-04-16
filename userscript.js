@@ -3,8 +3,10 @@ console.log('DadaTube: userscript.js loaded');
 // https://github.com/DVLP/localStorageDB#you-can-use-it-as-a-one-liner-in-your-js-code
 !function(){function e(t,o){return n?void(n.transaction("s").objectStore("s").get(t).onsuccess=function(e){var t=e.target.result&&e.target.result.v||null;o(t)}):void setTimeout(function(){e(t,o)},100)}var t=window.indexedDB||window.mozIndexedDB||window.webkitIndexedDB||window.msIndexedDB;if(!t)return void console.error("indexDB not supported");var n,o={k:"",v:""},r=t.open("d2",1);r.onsuccess=function(e){n=this.result},r.onerror=function(e){console.error("indexedDB request error"),console.log(e)},r.onupgradeneeded=function(e){n=null;var t=e.target.result.createObjectStore("s",{keyPath:"k"});t.transaction.oncomplete=function(e){n=e.target.db}},window.ldb={get:e,set:function(e,t){o.k=e,o.v=t,n.transaction("s","readwrite").objectStore("s").put(o)}}}();
 
-$(function() {
+$(function () {
     'use strict';
+
+    console.log('DadaTube: userscript.js ready');
 
     var options = {
         hiddenOpacity: 0.1,
@@ -124,15 +126,19 @@ $(function() {
      */
     var identifyHidable = function ($hidable) {
         return $hidable
-            .find('a.glitem')
+            .find('a.thumb-link')
             .attr('href')
-            .match('/pics/([a-zA-Z0-9\-\/_\.]+)')[1];
+            .match('/watch\\?v=(.*)')[1];
     };
 
     /**
      * Items to hide
+     *
+     * We look in related items on single video player page.
+     * First item is a playlist, we skip it.
      */
-    var $hidables = $('ul#g').find('li:not([style])'); // te, co mają styl, to reklamy
+    var $hidables = $('#watch-related')
+        .find('.related-list-item:not(:first-child)');
 
     // $hidables.each(function () {
     //     console.log('hidable on start', identifyHidable($(this)));
