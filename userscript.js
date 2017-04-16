@@ -140,14 +140,14 @@ $(function () {
                 }
 
                 if (hidablesProcessed === hidablesLength) {
-                    var $result = $hidables.filter(function () {
+                    var $hidablesToReturn = $hidables.filter(function () {
                         return !$.inArray(
                             identifyHidable($(this)),
                             selectedIds
                         );
                     });
 
-                    callback($result);
+                    callback($hidablesToReturn);
                 }
             });
         });
