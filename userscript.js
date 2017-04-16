@@ -171,6 +171,23 @@ $(function () {
             .match('/watch\\?v=(.*)')[1];
     }
 
+    function hideItemsInStorage(hidablesStorage, hidableView) {
+        selectHidablesFromStorage(hidablesStorage, function ($found) {
+            console.log('DadaTube: found to remove on start', $found);
+
+            hidableView.hide($found);
+
+            $found.each(function () {
+                var $hidable = $(this);
+
+                console.log('DadaTube: hiding on start', identifyHidable($hidable));
+
+                hidableView.hide($hidable);
+                // $found.remove();
+            });
+        });
+    }
+
     var options = {
         hiddenOpacity: 0.3
     };
@@ -215,20 +232,7 @@ $(function () {
     /**
      * Page loaded: removing elements already hidden and saved to localStorage
      */
-    selectHidablesFromStorage(hidablesStorage, function ($found) {
-        console.log('DadaTube: found to remove on start', $found);
-
-        hidableView.hide($found);
-
-        $found.each(function () {
-            var $hidable = $(this);
-
-            console.log('DadaTube: hiding on start', identifyHidable($hidable));
-
-            hidableView.hide($hidable);
-            // $found.remove();
-        });
-    });
+    hideItemsInStorage(hidablesStorage, hidableView);
 
     /**
      * Hide/remove from storage when space is hit
@@ -259,4 +263,12 @@ $(function () {
 
             window.close();
         });
+
+    /**
+     * When switched from other window/tab,
+     * we hide items that could have been hidden on other windows/tabs.
+     */
+    $(window).on('focus', function () {
+        hideItemsInStorage(hidablesStorage, hidableView);
+    });
 });
