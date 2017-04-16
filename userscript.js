@@ -119,7 +119,7 @@ $(function () {
         };
     };
 
-    function selectHidablesFromStorage(returnResultCallback) {
+    function selectHidablesFromStorage(callback) {
         var selectedIds = [];
 
         var hidablesLength = $hidables.length;
@@ -147,7 +147,7 @@ $(function () {
                         );
                     });
 
-                    returnResultCallback($result);
+                    callback($result);
                 }
             });
         });
