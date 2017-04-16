@@ -231,27 +231,6 @@ $(function () {
      */
     hideItemsInStorage(hidablesStorage, hidableView);
 
-    /**
-     * Hide/remove from storage when space is hit
-     */
-    // var removedAfterSpace = false;
-    // $(document).keydown(function (event) {
-    //     if (32 == event.keyCode) {
-    //         console.log('space was hit');
-    //
-    //         selectHidablesFromStorage(hidablesStorage, function ($found) {
-    //             if (removedAfterSpace) {
-    //                 hidableView.hide($found);
-    //             } else {
-    //                 hidableView.hide($found);
-    //                 // $found.remove();
-    //
-    //                 removedAfterSpace = true;
-    //             }
-    //         });
-    //     }
-    // });
-
     $('<button>hide all and close</button>')
         .addClass('yt-uix-button yt-uix-button-size-default yt-uix-button-expander')
         .insertAfter('#watch-more-related-button')
