@@ -178,7 +178,8 @@ $(function () {
     var hiddenClass = 'dnthHidden';
 
     addGlobalStyle(makeCss('.' + hiddenClass, {
-        opacity: options.hiddenOpacity,
+        border: '1px solid red',
+        // opacity: options.hiddenOpacity,
         transition: 'opacity 0.2s ease-in-out'
     }));
 
