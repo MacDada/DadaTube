@@ -120,37 +120,45 @@ $(function () {
     };
 
     /**
+     * @param {jQuery} $items
+     * @param {function} filterCallback
+     * @param {function} returnCallback
+     */
+    function jQueryLazyFilter($items, filterCallback, returnCallback) {
+        var $itemsToKeep = $();
+
+        var itemsLength = $items.length;
+        var itemsProcessed = 0;
+
+        $items.each(function (index, item) {
+            var $item = $(item);
+
+            filterCallback($item, function (shouldBeKeptInResult) {
+                itemsProcessed++;
+
+                if (shouldBeKeptInResult) {
+                    $itemsToKeep = $itemsToKeep.add($item);
+                }
+
+                if (itemsProcessed === itemsLength) {
+                    returnCallback($itemsToKeep);
+                }
+            });
+        });
+    }
+
+    /**
      * @param {HidablesStorage} hidablesStorage
      * @param {function} callback
      */
     function selectHidablesFromStorage(hidablesStorage, callback) {
-        var selectedIds = [];
-
-        var hidablesLength = $hidables.length;
-        var hidablesProcessed = 0;
-
-        $hidables.each(function (index, hidable) {
-            var id = identifyHidable($(hidable));
-
-            hidablesStorage.has(id, function (isHidden) {
-                hidablesProcessed++;
-
-                if (isHidden) {
-                    selectedIds.push(id);
-                }
-
-                if (hidablesProcessed === hidablesLength) {
-                    var $hidablesToReturn = $hidables.filter(function () {
-                        return !$.inArray(
-                            identifyHidable($(this)),
-                            selectedIds
-                        );
-                    });
-
-                    callback($hidablesToReturn);
-                }
-            });
-        });
+        jQueryLazyFilter(
+            $hidables,
+            function filterCallback($hidable, callback) {
+                hidablesStorage.has(identifyHidable($hidable), callback);
+            },
+            callback
+        );
     }
 
     /**
