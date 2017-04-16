@@ -59,14 +59,14 @@ $(function () {
         },
         show: function ($hidables) {
             $hidables.each(function () {
-                hiddenHidablesStorage.remove(identifyHidable($(this)));
+                hidablesStorage.remove(identifyHidable($(this)));
             });
 
             hidableView.show($hidables);
         },
         hide: function ($hidables) {
             $hidables.each(function () {
-                hiddenHidablesStorage.add(identifyHidable($(this)));
+                hidablesStorage.add(identifyHidable($(this)));
             });
 
             hidableView.hide($hidables);
@@ -128,7 +128,7 @@ $(function () {
         $hidables.each(function (index, value) {
             var id = identifyHidable($(value));
 
-            hiddenHidablesStorage.has(id, function (has) {
+            hidablesStorage.has(id, function (has) {
                 hidablesProcessed++;
 
                 if (has) {
@@ -179,7 +179,7 @@ $(function () {
      * Keys have prefix to avoid collisions and easily find items.
      * Keys hold hidable IDs, values have the date they were hidden.
      */
-    var hiddenHidablesStorage = new HidablesStorage('dnthHiddenHidable_');
+    var hidablesStorage = new HidablesStorage('dnthHiddenHidable_');
 
     /**
      * Items to hide
