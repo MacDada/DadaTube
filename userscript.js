@@ -140,10 +140,6 @@ $(function () {
                 }
 
                 if (hidablesProcessed === hidablesLength) {
-                    document.selectedIds = selectedIds;
-
-                    document.hids = $hidables;
-
                     var $result = $hidables.filter(function () {
                         return !$.inArray(
                             identifyHidable($(this)),
