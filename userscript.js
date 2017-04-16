@@ -19,7 +19,7 @@ $(function () {
         style.innerHTML = css;
         head.appendChild(style);
 
-        console.log('added css', css);
+        console.log('DadaTube: added css', css);
     }
 
     function makeCss(selector, rules) {
@@ -86,27 +86,27 @@ $(function () {
     var HidablesStorage = function (prefix) {
         this.has = function (id, callback) {
             if (!id) {
-                throw 'HidablesStorage: id must not be empty';
+                throw 'DadaTube: HidablesStorage: id must not be empty';
             }
 
             var storageKey = prefix + id;
 
             ldb.get(storageKey, function (value) {
-                console.log('HidablesStorage get', storageKey, value);
+                console.log('DadaTube: HidablesStorage get', storageKey, value);
 
                 callback(value ? true : false);
             });
         };
 
         this.add = function (id) {
-            console.log('HidablesStorage.add(' + id + ') called');
+            console.log('DadaTube: HidablesStorage.add(' + id + ') called');
 
             var storageKey = prefix + id;
 
             ldb.set(storageKey, (new Date()).toJSON());
 
             ldb.get(storageKey, function (value) {
-                console.log('value for "' + storageKey + '" was set: "' + value + '"');
+                console.log('DadaTube: value for "' + storageKey + '" was set: "' + value + '"');
             });
         };
 
