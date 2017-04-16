@@ -132,10 +132,10 @@ $(function () {
         $hidables.each(function (index, hidable) {
             var id = identifyHidable($(hidable));
 
-            hidablesStorage.has(id, function (has) {
+            hidablesStorage.has(id, function (isHidden) {
                 hidablesProcessed++;
 
-                if (has) {
+                if (isHidden) {
                     selectedIds.push(id);
                 }
 
