@@ -9,7 +9,7 @@ $(function () {
     console.log('DadaTube: userscript.js ready');
 
     var options = {
-        hiddenOpacity: 0.1,
+        hiddenOpacity: 0.3,
         removeJunkStrategy: 'remove'
     };
 
