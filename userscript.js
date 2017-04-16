@@ -27,30 +27,6 @@ $(function() {
 
     addGlobalStyle('.' + hiddenClass + ' { opacity: ' + options.hiddenOpacity + '; transition: opacity 0.2s ease-in-out; }');
 
-    function removeJunk() {
-        function doRemove($junk) {
-            if ('remove' === options.removeJunkStrategy) {
-                $junk.remove();
-            } else if ('border' === options.removeJunkStrategy) {
-                $junk.css('border', '2px solid red');
-            } else {
-                throw 'unknown removeJunkStrategy: ' + options.removeJunkStrategy;
-            }
-        }
-
-        var $h3 = $('h3:contains("Related pages")');
-        doRemove($h3.nextAll().css('border', '2px solid red'));
-        doRemove($h3);
-
-        var $footer = $('#footer');
-        doRemove($footer.nextAll());
-        doRemove($footer);
-
-        doRemove($('iframe'));
-
-        doRemove($('ul.tags'));
-    }
-
     /**
      * Show/hide hidables in the view
      */
@@ -161,8 +137,6 @@ $(function() {
     // $hidables.each(function () {
     //     console.log('hidable on start', identifyHidable($(this)));
     // });
-
-    removeJunk();
 
     /**
      * Clicking on a table row (hidable), hides it.
