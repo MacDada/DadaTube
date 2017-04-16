@@ -207,7 +207,7 @@ $(function () {
      * Clicking on a table row (hidable), hides it.
      */
     $hidables.click(function () {
-        console.log('hidable clicked');
+        console.log('DadaTube: hidable clicked');
 
         hidablesController.toggleVisibility($(this));
     });
@@ -216,10 +216,18 @@ $(function () {
      * Page loaded: removing elements already hidden and saved to localStorage
      */
     selectHidablesFromStorage(hidablesStorage, function ($found) {
-        console.log('found to remove on start', $found);
+        console.log('DadaTube: found to remove on start', $found);
 
         hidableView.hide($found);
-        // $found.remove();
+
+        $found.each(function () {
+            var $hidable = $(this);
+
+            console.log('DadaTube: hiding on start', identifyHidable($hidable));
+
+            hidableView.hide($hidable);
+            // $found.remove();
+        });
     });
 
     /**
