@@ -71,6 +71,9 @@ $(function () {
 
             hidableView.hide($hidables);
         },
+        /**
+         * @param {jQuery} $hidable
+         */
         toggleVisibility: function ($hidable) {
             if ($hidable.hasClass(hiddenClass)) {
                 hidablesController.show($hidable);
@@ -80,7 +83,7 @@ $(function () {
         }
     };
 
-    var HidablesStorage = function (storageDriver, prefix) {
+    var HidablesStorage = function (prefix) {
         this.has = function (id, callback) {
             if (!id) {
                 callback(false);
@@ -173,9 +176,9 @@ $(function () {
     /**
      * Hidables IDs storage helper.
      * Keys have prefix to avoid collisions and easily find items.
-     * Key hold hidable IDs, values have the date they were hidden.
+     * Keys hold hidable IDs, values have the date they were hidden.
      */
-    var hiddenHidablesStorage = new HidablesStorage(localStorage, 'dnthHiddenHidable_');
+    var hiddenHidablesStorage = new HidablesStorage('dnthHiddenHidable_');
 
     /**
      * Items to hide
