@@ -8,6 +8,7 @@ It hides (highlights in red border for now :P) already seen videos in "related" 
 To do
 --
 
+* apply hiding from other tabs/windows without page refresh
 * hiding on [subscriptions page](https://www.youtube.com/feed/subscriptions)
 * handling "first" videos in related
 * hiding on [homepage](https://www.youtube.com/)
