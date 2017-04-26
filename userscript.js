@@ -5,6 +5,8 @@ $(function () {
 
     console.log('DadaTube: userscript.js ready');
 
+    var config = window.dadaTubeConfig;
+
     function log() {
         var args = Array.prototype.slice.call(arguments);
         args.unshift('DadaTube:');
@@ -289,8 +291,10 @@ $(function () {
         });
     }
 
-    // make all hidables visible for debug
-    // $hidables.css('opacity', '0.3');
+    if (config.debug) {
+        // make all hidables visible
+        $hidables.css('opacity', '0.3');
+    }
 
     /**
      * Clicking on a table row (hidable), hides it.
