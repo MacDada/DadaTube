@@ -5,15 +5,23 @@ $(function () {
 
     console.log('DadaTube: userscript.js ready');
 
+    function convertToBoolean(value) {
+        return !!value;
+    }
+
     function addGlobalStyle(css) {
         var head, style;
+
         head = document.getElementsByTagName('head')[0];
+
         if (!head) {
             throw 'no head?!';
         }
+
         style = document.createElement('style');
         style.type = 'text/css';
         style.innerHTML = css;
+
         head.appendChild(style);
 
         console.log('DadaTube: added css', css);
@@ -91,7 +99,7 @@ $(function () {
             ldb.get(storageKey, function (value) {
                 console.log('DadaTube: HidablesStorage.get', storageKey, value);
 
-                callback(value ? true : false);
+                callback(convertToBoolean(value));
             });
         };
 
