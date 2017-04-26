@@ -182,9 +182,10 @@ $(function () {
 
     /**
      * @param {HidablesStorage} hidablesStorage
+     * @param {jQuery} $hidables
      * @param {function} callback
      */
-    function selectHidablesFromStorage(hidablesStorage, callback) {
+    function selectHidablesFromStorage(hidablesStorage, $hidables, callback) {
         jQueryLazyFilter(
             $hidables,
             function filterCallback($hidable, callback) {
@@ -235,8 +236,8 @@ $(function () {
         };
     }
 
-    function hideItemsInStorage(hidablesStorage, hidableView) {
-        selectHidablesFromStorage(hidablesStorage, function ($found) {
+    function hideItemsInStorage(hidablesStorage, hidableView, $hidables) {
+        selectHidablesFromStorage(hidablesStorage, $hidables, function ($found) {
             log('found to hide from storage', $found);
 
             hidableView.hide($found);
@@ -321,7 +322,7 @@ $(function () {
      * Page loaded: removing elements already hidden and saved to localStorage
      */
     log('hiding on start');
-    hideItemsInStorage(hidablesStorage, hidableView);
+    hideItemsInStorage(hidablesStorage, hidableView, $hidables);
 
     $('<button>hide all and close</button>')
         .addClass('yt-uix-button yt-uix-button-size-default yt-uix-button-expander')
@@ -340,7 +341,7 @@ $(function () {
         if (!document.hidden) {
             log('hiding on window being visible (i.e. tab viewed again)');
 
-            hideItemsInStorage(hidablesStorage, hidableView);
+            hideItemsInStorage(hidablesStorage, hidableView, $hidables);
         }
     });
 });
