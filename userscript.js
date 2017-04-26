@@ -177,20 +177,22 @@ $(function () {
      * Gets hidable identifying data
      */
     function identifyHidable($hidable) {
+        function extractVideoIdFromLink($link) {
+            return $link
+                .attr('href')
+                .match('/watch\\?v=(.*)')[1];
+        }
+
         var $onSingleVideoRelated = $hidable.find('a.thumb-link');
 
         if (1 === $onSingleVideoRelated.length) {
-            return $onSingleVideoRelated
-                .attr('href')
-                .match('/watch\\?v=(.*)')[1];
+            return extractVideoIdFromLink($onSingleVideoRelated)
         }
 
         var $onHomepage = $hidable.find('a.yt-uix-sessionlink:first');
 
         if (1 === $onHomepage.length) {
-            return $onHomepage
-                .attr('href')
-                .match('/watch\\?v=(.*)')[1];
+            return extractVideoIdFromLink($onHomepage);
         }
 
         throw {
