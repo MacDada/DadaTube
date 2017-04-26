@@ -242,9 +242,13 @@ $(function () {
     // recommended on homepage
     $hidables = $hidables.add('.yt-lockup-video');
 
-    $hidables.each(function () {
-        console.log('hidable on start', identifyHidable($(this)));
-    });
+    if (0 === $hidables.length) {
+        console.log('DadaTube: no hidables found on start');
+    } else {
+        $hidables.each(function () {
+            console.log('DadaTube: hidable on start', identifyHidable($(this)));
+        });
+    }
 
     // $hidables.css('opacity', '0.2');
 
