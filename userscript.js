@@ -5,7 +5,10 @@ $(function () {
 
     console.log('DadaTube: userscript.js ready');
 
-    var config = window.dadaTubeConfig;
+    const config = window.dadaTubeConfig;
+
+    const itemsFromRightColumnSelector = '.related-list-item';
+    const itemsFromHomeAndSubscriptionsPagesSelector = '.yt-lockup-video';
 
     function log() {
         var args = Array.prototype.slice.call(arguments);
@@ -119,7 +122,7 @@ $(function () {
                 throw 'DadaTube: HidablesStorage: id must not be empty';
             }
 
-            var storageKey = prefix + id;
+            const storageKey = prefix + id;
 
             ldb.get(storageKey, function (value) {
                 log('HidablesStorage.get', storageKey, value);
@@ -131,7 +134,7 @@ $(function () {
         this.add = function (id) {
             log('HidablesStorage.add(' + id + ') called');
 
-            var storageKey = prefix + id;
+            const storageKey = prefix + id;
 
             ldb.set(storageKey, (new Date()).toJSON());
 
@@ -155,13 +158,13 @@ $(function () {
      * @param {function} returnCallback
      */
     function jQueryLazyFilter($items, filterCallback, returnCallback) {
-        var $itemsToKeep = $();
+        const itemsLength = $items.length;
 
-        var itemsLength = $items.length;
+        var $itemsToKeep = $();
         var itemsProcessed = 0;
 
         $items.each(function (index, item) {
-            var $item = $(item);
+            const $item = $(item);
 
             filterCallback($item, function (shouldBeKeptInResult) {
                 itemsProcessed++;
@@ -201,7 +204,7 @@ $(function () {
      */
     function identifyHidable($hidable) {
         function extractVideoIdFromLink($link) {
-            var id = $link
+            const id = $link
                 .attr('href')
                 .match('/watch\\?v=(.*)')[1];
 
@@ -212,13 +215,13 @@ $(function () {
             return stringRemoveEndStartingWith(id, '&t=');
         }
 
-        var $onSingleVideoRelated = $hidable.find('a.thumb-link');
+        const $onSingleVideoRelated = $hidable.find('a.thumb-link');
 
         if (1 === $onSingleVideoRelated.length) {
             return extractVideoIdFromLink($onSingleVideoRelated)
         }
 
-        var $onHomepage = $hidable.find('a.yt-uix-sessionlink:first');
+        const $onHomepage = $hidable.find('a.yt-uix-sessionlink:first');
 
         if (1 === $onHomepage.length) {
             return extractVideoIdFromLink($onHomepage);
@@ -239,7 +242,7 @@ $(function () {
             hidableView.hide($found);
 
             $found.each(function () {
-                var $hidable = $(this);
+                const $hidable = $(this);
 
                 log('hiding from storage', identifyHidable($hidable));
 
@@ -253,7 +256,7 @@ $(function () {
         hiddenOpacity: 0.3
     };
 
-    var hiddenClass = 'dnthHidden';
+    const hiddenClass = 'dnthHidden';
 
     addGlobalStyle(makeCss('.' + hiddenClass, {
         border: '1px solid red',
@@ -266,18 +269,15 @@ $(function () {
      * Keys have prefix to avoid collisions and easily find items.
      * Keys hold hidable IDs, values have the date they were hidden.
      */
-    var hidablesStorage = new HidablesStorage('dnthHiddenHidable_');
+    const hidablesStorage = new HidablesStorage('dnthHiddenHidable_');
 
     /**
      * Items to hide
      */
     var $hidables = $();
 
-    // right column on single video page
-    $hidables = $hidables.add('.related-list-item');
-
-    // homepage + subscriptions
-    $hidables = $hidables.add('.yt-lockup-video');
+    $hidables = $hidables.add(itemsFromRightColumnSelector);
+    $hidables = $hidables.add(itemsFromHomeAndSubscriptionsPagesSelector);
 
     $hidables = $hidables.filter(function () {
         try {
