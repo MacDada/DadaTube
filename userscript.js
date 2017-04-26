@@ -16,6 +16,10 @@ $(function () {
         return !!value;
     }
 
+    function stringContains(string, contains) {
+        return -1 !== string.indexOf(contains);
+    }
+
     function addGlobalStyle(css) {
         var head, style;
 
@@ -173,14 +177,25 @@ $(function () {
         );
     }
 
+    function IdentifiedPlaylistException(id) {
+        this.message = 'Could not identify hidable: it is a playlist';
+        this.id = id;
+    }
+
     /**
      * Gets hidable identifying data
      */
     function identifyHidable($hidable) {
         function extractVideoIdFromLink($link) {
-            return $link
+            var id = $link
                 .attr('href')
                 .match('/watch\\?v=(.*)')[1];
+
+            if (stringContains(id, '&list=')) {
+                throw new IdentifiedPlaylistException(id);
+            }
+
+            return id;
         }
 
         var $onSingleVideoRelated = $hidable.find('a.thumb-link');
@@ -249,6 +264,22 @@ $(function () {
 
     // homepage + subscriptions
     $hidables = $hidables.add('.yt-lockup-video');
+
+    $hidables = $hidables.filter(function () {
+        try {
+            identifyHidable($(this));
+
+            return true;
+        } catch (error) {
+            if (error instanceof IdentifiedPlaylistException) {
+                log('skipping playlist on start', error);
+
+                return false;
+            }
+
+            throw error;
+        }
+    });
 
     if (0 === $hidables.length) {
         log('no hidables found on start');
