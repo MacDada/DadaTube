@@ -4,7 +4,7 @@ DadaTube
 A script for [Tampermonkey](https://tampermonkey.net/).
 
 It hides (highlights in red border for now :P) 
-already seen videos in "related" on YouTube.
+already seen videos on YouTube.
 
 To do
 --
