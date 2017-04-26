@@ -5,6 +5,13 @@ $(function () {
 
     console.log('DadaTube: userscript.js ready');
 
+    function log() {
+        var args = Array.prototype.slice.call(arguments);
+        args.unshift('DadaTube:');
+
+        console.log.apply(console, args);
+    }
+
     function convertToBoolean(value) {
         return !!value;
     }
@@ -24,7 +31,7 @@ $(function () {
 
         head.appendChild(style);
 
-        console.log('DadaTube: added css', css);
+        log('added css', css);
     }
 
     function makeCss(selector, rules) {
@@ -97,21 +104,21 @@ $(function () {
             var storageKey = prefix + id;
 
             ldb.get(storageKey, function (value) {
-                console.log('DadaTube: HidablesStorage.get', storageKey, value);
+                log('HidablesStorage.get', storageKey, value);
 
                 callback(convertToBoolean(value));
             });
         };
 
         this.add = function (id) {
-            console.log('DadaTube: HidablesStorage.add(' + id + ') called');
+            log('HidablesStorage.add(' + id + ') called');
 
             var storageKey = prefix + id;
 
             ldb.set(storageKey, (new Date()).toJSON());
 
             ldb.get(storageKey, function (value) {
-                console.log('DadaTube: value for "' + storageKey + '" was set: "' + value + '"');
+                log('value for "' + storageKey + '" was set: "' + value + '"');
             });
         };
 
@@ -196,14 +203,14 @@ $(function () {
 
     function hideItemsInStorage(hidablesStorage, hidableView) {
         selectHidablesFromStorage(hidablesStorage, function ($found) {
-            console.log('DadaTube: found to remove on start', $found);
+            log('found to remove on start', $found);
 
             hidableView.hide($found);
 
             $found.each(function () {
                 var $hidable = $(this);
 
-                console.log('DadaTube: hiding on start', identifyHidable($hidable));
+                log('hiding on start', identifyHidable($hidable));
 
                 hidableView.hide($hidable);
                 // $found.remove();
@@ -242,21 +249,21 @@ $(function () {
     $hidables = $hidables.add('.yt-lockup-video');
 
     if (0 === $hidables.length) {
-        console.log('DadaTube: no hidables found on start');
+        log('no hidables found on start');
     } else {
         $hidables.each(function () {
-            console.log('DadaTube: hidable on start', identifyHidable($(this)));
+            log('hidable on start', identifyHidable($(this)));
         });
     }
 
     // make all hidables visible for debug
-    // $hidables.css('opacity', '0.2');
+    // $hidables.css('opacity', '0.3');
 
     /**
      * Clicking on a table row (hidable), hides it.
      */
     $hidables.click(function () {
-        console.log('DadaTube: hidable clicked');
+        log('hidable clicked');
 
         hidablesController.toggleVisibility($(this));
     });
