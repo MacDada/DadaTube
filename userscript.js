@@ -242,9 +242,11 @@ $(function () {
     // recommended on homepage
     $hidables = $hidables.add('.yt-lockup-video');
 
-    // $hidables.each(function () {
-    //     console.log('hidable on start', identifyHidable($(this)));
-    // }).css('opacity', '0.2');
+    $hidables.each(function () {
+        console.log('hidable on start', identifyHidable($(this)));
+    });
+
+    // $hidables.css('opacity', '0.2');
 
     /**
      * Clicking on a table row (hidable), hides it.
