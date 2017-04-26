@@ -238,7 +238,7 @@ $(function () {
     // right column on single video page
     $hidables = $hidables.add('.related-list-item');
 
-    // homepage
+    // homepage + subscriptions
     $hidables = $hidables.add('.yt-lockup-video');
 
     if (0 === $hidables.length) {
