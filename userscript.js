@@ -22,6 +22,18 @@ $(function () {
         return -1 !== string.indexOf(contains);
     }
 
+    /**
+     * @param {string} string
+     * @param {string} start
+     * @returns string
+     */
+    function stringRemoveEndStartingWith(string, start)
+    {
+        return stringContains(string, start)
+            ? string.substring(0, string.indexOf(start))
+            : string;
+    }
+
     function addGlobalStyle(css) {
         var head, style;
 
@@ -197,7 +209,7 @@ $(function () {
                 throw new IdentifiedPlaylistException(id);
             }
 
-            return id;
+            return stringRemoveEndStartingWith(id, '&t=');
         }
 
         var $onSingleVideoRelated = $hidable.find('a.thumb-link');
