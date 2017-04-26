@@ -235,11 +235,10 @@ $(function () {
      */
     var $hidables = $();
 
-    // related items on single video page
-    // first item is a playlist, we skip it
-    $hidables = $hidables.add('#watch-related .related-list-item:not(:first-child)');
+    // right column on single video page
+    $hidables = $hidables.add('.related-list-item');
 
-    // recommended on homepage
+    // homepage
     $hidables = $hidables.add('.yt-lockup-video');
 
     if (0 === $hidables.length) {
@@ -250,6 +249,7 @@ $(function () {
         });
     }
 
+    // make all hidables visible for debug
     // $hidables.css('opacity', '0.2');
 
     /**
