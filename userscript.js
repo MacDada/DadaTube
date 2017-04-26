@@ -162,10 +162,28 @@ $(function () {
      * Gets hidable identifying data
      */
     function identifyHidable($hidable) {
-        return $hidable
-            .find('a.thumb-link')
-            .attr('href')
-            .match('/watch\\?v=(.*)')[1];
+        var $onSingleVideoRelated = $hidable.find('a.thumb-link');
+
+        if (1 === $onSingleVideoRelated.length) {
+            return $onSingleVideoRelated
+                .attr('href')
+                .match('/watch\\?v=(.*)')[1];
+        }
+
+        var $onHomepage = $hidable.find('a.yt-uix-sessionlink:first');
+
+        if (1 === $onHomepage.length) {
+            return $onHomepage
+                .attr('href')
+                .match('/watch\\?v=(.*)')[1];
+        }
+
+        throw {
+            'message': 'Could not identify hidable',
+            '$hidable': $hidable,
+            '$onSingleVideoRelated': $onSingleVideoRelated,
+            '$onHomepage': $onHomepage
+        };
     }
 
     function hideItemsInStorage(hidablesStorage, hidableView) {
@@ -206,16 +224,19 @@ $(function () {
 
     /**
      * Items to hide
-     *
-     * We look in related items on single video player page.
-     * First item is a playlist, we skip it.
      */
-    var $hidables = $('#watch-related')
-        .find('.related-list-item:not(:first-child)');
+    var $hidables = $();
+
+    // related items on single video page
+    // first item is a playlist, we skip it
+    $hidables = $hidables.add('#watch-related .related-list-item:not(:first-child)');
+
+    // recommended on homepage
+    $hidables = $hidables.add('.yt-lockup-video');
 
     // $hidables.each(function () {
     //     console.log('hidable on start', identifyHidable($(this)));
-    // });
+    // }).css('opacity', '0.2');
 
     /**
      * Clicking on a table row (hidable), hides it.
