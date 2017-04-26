@@ -9,7 +9,6 @@ already seen videos on YouTube.
 To do
 --
 
-* apply hiding from other tabs/windows without page refresh
 * warning about full storage
 * real hiding instead of just highlighting already seen videos with red border
 * handle dynamically loaded videos

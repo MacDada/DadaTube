@@ -222,14 +222,14 @@ $(function () {
 
     function hideItemsInStorage(hidablesStorage, hidableView) {
         selectHidablesFromStorage(hidablesStorage, function ($found) {
-            log('found to remove on start', $found);
+            log('found to hide from storage', $found);
 
             hidableView.hide($found);
 
             $found.each(function () {
                 var $hidable = $(this);
 
-                log('hiding on start', identifyHidable($hidable));
+                log('hiding from storage', identifyHidable($hidable));
 
                 hidableView.hide($hidable);
                 // $found.remove();
@@ -308,6 +308,7 @@ $(function () {
     /**
      * Page loaded: removing elements already hidden and saved to localStorage
      */
+    log('hiding on start');
     hideItemsInStorage(hidablesStorage, hidableView);
 
     $('<button>hide all and close</button>')
@@ -323,7 +324,11 @@ $(function () {
      * When switched from other window/tab,
      * we hide items that could have been hidden on other windows/tabs.
      */
-    $(window).on('focus', function () {
-        hideItemsInStorage(hidablesStorage, hidableView);
+    $(window).on('visibilitychange', function () {
+        if (!document.hidden) {
+            log('hiding on window being visible (i.e. tab viewed again)');
+
+            hideItemsInStorage(hidablesStorage, hidableView);
+        }
     });
 });
