@@ -293,7 +293,7 @@ $(function () {
 
     if (config.debug) {
         // make all hidables visible
-        $hidables.css('opacity', '0.3');
+        $hidables.css('opacity', '0.5');
     }
 
     /**
