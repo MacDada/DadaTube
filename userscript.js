@@ -10,6 +10,11 @@ $(function () {
     const itemsFromRightColumnSelector = '.related-list-item';
     const itemsFromHomeAndSubscriptionsPagesSelector = '.yt-lockup-video';
 
+    const itemsSelector = [
+        itemsFromRightColumnSelector,
+        itemsFromHomeAndSubscriptionsPagesSelector
+    ].join(',');
+
     function log() {
         var args = Array.prototype.slice.call(arguments);
         args.unshift('DadaTube:');
@@ -264,10 +269,7 @@ $(function () {
     /**
      * Items to hide
      */
-    var $hidables = $();
-
-    $hidables = $hidables.add(itemsFromRightColumnSelector);
-    $hidables = $hidables.add(itemsFromHomeAndSubscriptionsPagesSelector);
+    var $hidables = $(itemsSelector);
 
     $hidables = $hidables.filter(function () {
         try {
