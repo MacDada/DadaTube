@@ -253,15 +253,10 @@ $(function () {
         });
     }
 
-    var options = {
-        hiddenOpacity: 0.3
-    };
-
     const hiddenClass = 'dnthHidden';
 
     addGlobalStyle(makeCss('.' + hiddenClass, {
         border: '1px solid red',
-        // opacity: options.hiddenOpacity,
         transition: 'opacity 0.2s ease-in-out'
     }));
 
