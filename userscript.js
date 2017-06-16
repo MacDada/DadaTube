@@ -257,7 +257,7 @@ $(function () {
             identifyHidable($item);
         } catch (error) {
             if (error instanceof IdentifiedPlaylistException) {
-                log('skipping playlist on start', error);
+                log('skipping playlist', error);
 
                 return false;
             }
