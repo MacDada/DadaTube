@@ -291,13 +291,9 @@ $(function () {
         return isItemHidable($(this));
     });
 
-    if (0 === $hidables.length) {
-        log('no hidables found on start');
-    } else {
-        $hidables.each(function () {
-            log('hidable on start', identifyHidable($(this)));
-        });
-    }
+    $hidables.each(function () {
+        log('hidable on start', identifyHidable($(this)));
+    });
 
     if (config.debug) {
         // make all hidables visible
