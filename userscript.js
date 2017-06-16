@@ -285,35 +285,40 @@ $(function () {
     /**
      * Items to hide
      */
-    var $hidables = $(itemsSelector);
+    var $hidables = $();
 
-    $hidables = $hidables.filter(function () {
-        return isItemHidable($(this));
+    $('body').livequery(itemsSelector, function () {
+        console.log('new item was added to the page');
+
+        const $hidable = $(this);
+
+        if (!isItemHidable($hidable)) {
+            return;
+        }
+
+        $hidables = $hidables.add($hidable);
+
+        log('found new hidable', identifyHidable($(this)));
+
+        if (config.debug) {
+            // make all hidables visible
+            $hidable.css('opacity', '0.5');
+        }
+
+        /**
+         * Clicking on a table row (hidable), hides it.
+         */
+        $hidable.click(function () {
+            log('hidable clicked');
+
+            hidablesController.toggleVisibility($(this));
+        });
+
+        /**
+         * removing elements already hidden and saved to localStorage
+         */
+        hideItemsInStorage(hidablesStorage, hidableView, $hidable);
     });
-
-    $hidables.each(function () {
-        log('hidable on start', identifyHidable($(this)));
-    });
-
-    if (config.debug) {
-        // make all hidables visible
-        $hidables.css('opacity', '0.5');
-    }
-
-    /**
-     * Clicking on a table row (hidable), hides it.
-     */
-    $hidables.click(function () {
-        log('hidable clicked');
-
-        hidablesController.toggleVisibility($(this));
-    });
-
-    /**
-     * Page loaded: removing elements already hidden and saved to localStorage
-     */
-    log('hiding on start');
-    hideItemsInStorage(hidablesStorage, hidableView, $hidables);
 
     /**
      * When switched from other window/tab,
