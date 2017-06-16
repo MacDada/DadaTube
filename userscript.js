@@ -84,12 +84,6 @@ $(function () {
     };
 
     var hidablesController = {
-        showAll: function () {
-            hidablesController.show($hidables);
-        },
-        hideAll: function () {
-            hidablesController.hide($hidables);
-        },
         show: function ($hidables) {
             $hidables.each(function () {
                 hidablesStorage.remove(identifyHidable($(this)));
@@ -318,15 +312,6 @@ $(function () {
      */
     log('hiding on start');
     hideItemsInStorage(hidablesStorage, hidableView, $hidables);
-
-    $('<button>hide all and close</button>')
-        .addClass('yt-uix-button yt-uix-button-size-default yt-uix-button-expander')
-        .insertAfter('#watch-more-related-button')
-        .click(function () {
-            hidablesController.hideAll();
-
-            window.close();
-        });
 
     /**
      * When switched from other window/tab,
