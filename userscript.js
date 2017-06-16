@@ -252,6 +252,22 @@ $(function () {
         });
     }
 
+    function isItemHidable($item) {
+        try {
+            identifyHidable($item);
+        } catch (error) {
+            if (error instanceof IdentifiedPlaylistException) {
+                log('skipping playlist on start', error);
+
+                return false;
+            }
+
+            throw error;
+        }
+
+        return true;
+    }
+
     const hiddenClass = 'dnthHidden';
 
     addGlobalStyle(makeCss('.' + hiddenClass, {
@@ -272,19 +288,7 @@ $(function () {
     var $hidables = $(itemsSelector);
 
     $hidables = $hidables.filter(function () {
-        try {
-            identifyHidable($(this));
-
-            return true;
-        } catch (error) {
-            if (error instanceof IdentifiedPlaylistException) {
-                log('skipping playlist on start', error);
-
-                return false;
-            }
-
-            throw error;
-        }
+        return isItemHidable($(this));
     });
 
     if (0 === $hidables.length) {
