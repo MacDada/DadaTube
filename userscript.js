@@ -288,7 +288,7 @@ $(function () {
     var $hidables = $();
 
     $('body').livequery(itemsSelector, function () {
-        console.log('new item was added to the page');
+        log('new item was added to the page');
 
         const $hidable = $(this);
 
