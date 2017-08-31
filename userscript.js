@@ -8,8 +8,8 @@ $(function () {
     const config = window.dadaTubeConfig;
 
     const itemsFromRightColumnSelector = 'ytd-compact-video-renderer';
-    const itemsFromHomePageSelector = '.yt-lockup-video';
-    const itemsFromSubscriptionsPageSelector = 'ytd-item-section-renderer.ytd-section-list-renderer';
+    const itemsFromHomePageSelector = 'ytd-grid-video-renderer.ytd-grid-renderer, ytd-grid-video-renderer.yt-horizontal-list-renderer';
+    const itemsFromSubscriptionsPageSelector = 'ytd-browse:not([page-subtype="home"]) ytd-item-section-renderer';
 
     const itemsSelector = [
         itemsFromRightColumnSelector,
