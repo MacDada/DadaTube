@@ -8,11 +8,13 @@ $(function () {
     const config = window.dadaTubeConfig;
 
     const itemsFromRightColumnSelector = '.related-list-item';
-    const itemsFromHomeAndSubscriptionsPagesSelector = '.yt-lockup-video';
+    const itemsFromHomePageSelector = '.yt-lockup-video';
+    const itemsFromSubscriptionsPageSelector = 'ytd-item-section-renderer.ytd-section-list-renderer';
 
     const itemsSelector = [
         itemsFromRightColumnSelector,
-        itemsFromHomeAndSubscriptionsPagesSelector
+        itemsFromHomePageSelector,
+        itemsFromSubscriptionsPageSelector
     ].join(',');
 
     function log() {
