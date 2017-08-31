@@ -7,7 +7,7 @@ $(function () {
 
     const config = window.dadaTubeConfig;
 
-    const itemsFromRightColumnSelector = '.related-list-item';
+    const itemsFromRightColumnSelector = 'ytd-compact-video-renderer';
     const itemsFromHomePageSelector = '.yt-lockup-video';
     const itemsFromSubscriptionsPageSelector = 'ytd-item-section-renderer.ytd-section-list-renderer';
 
@@ -217,7 +217,7 @@ $(function () {
             return stringRemoveEndStartingWith(id, '&t=');
         }
 
-        const $onSingleVideoRelated = $hidable.find('a.thumb-link');
+        const $onSingleVideoRelated = $hidable.find('a.ytd-thumbnail');
 
         if (1 === $onSingleVideoRelated.length) {
             return extractVideoIdFromLink($onSingleVideoRelated)
